@@ -1,0 +1,124 @@
+{
+    "idSave": 86,
+    "isFirstSession": false,
+    "language": "ru",
+    "promptDone": false,
+    "carDataList": [
+        {
+            "taskCheckKey": "",
+            "key": "0",
+            "price": 0,
+            "name": "IMPULSE",
+            "isPurchased": true,
+            "isSelected": true,
+            "isTaskAwarded": true,
+            "taskCheck": ""
+        },
+        {
+            "taskCheckKey": "",
+            "key": "1",
+            "price": 500,
+            "name": "TEMPEST",
+            "isPurchased": false,
+            "isSelected": false,
+            "isTaskAwarded": true,
+            "taskCheck": ""
+        },
+        {
+            "taskCheckKey": "task_car_1",
+            "key": "2",
+            "price": 20000,
+            "name": "INFERNO",
+            "isPurchased": false,
+            "isSelected": false,
+            "isTaskAwarded": false,
+            "taskCheck": "Покупка машины будет доступна после выполнения задания"
+        },
+        {
+            "taskCheckKey": "task_car_1",
+            "key": "3",
+            "price": 30000,
+            "name": "Nova RX-01",
+            "isPurchased": false,
+            "isSelected": false,
+            "isTaskAwarded": false,
+            "taskCheck": "Покупка машины будет доступна после выполнения задания"
+        },
+        {
+            "taskCheckKey": "",
+            "key": "4",
+            "price": 3000,
+            "name": "Silent RX 1",
+            "isPurchased": false,
+            "isSelected": false,
+            "isTaskAwarded": true,
+            "taskCheck": " "
+        },
+        {
+            "taskCheckKey": " ",
+            "key": "5",
+            "price": 25000,
+            "name": "Astra M1",
+            "isPurchased": false,
+            "isSelected": false,
+            "isTaskAwarded": true,
+            "taskCheck": " "
+        },
+        {
+            "taskCheckKey": " ",
+            "key": "6",
+            "price": 30000,
+            "name": "Misterio ",
+            "isPurchased": false,
+            "isSelected": false,
+            "isTaskAwarded": true,
+            "taskCheck": " "
+        },
+        {
+            "taskCheckKey": " ",
+            "key": "7",
+            "price": 40000,
+            "name": "Venera",
+            "isPurchased": false,
+            "isSelected": false,
+            "isTaskAwarded": true,
+            "taskCheck": " "
+        }
+    ],
+    "scoreData": {
+        "Score": 35
+    },
+    "bestTimeData": {
+        "bestTime": 0.0
+    },
+    "taskCountData": {
+        "TaskCompletionCounts": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+        ]
+    },
+    "buttonTaskStatus": {
+        "TaskCompleted": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ]
+    },
+    "reward": {
+        "Type": 0,
+        "Amount": 0,
+        "CarID": ""
+    },
+    "audioData": {
+        "isSoundOn": false,
+        "isMusicOn": false
+    },
+    "tutorialCompleted": true
+}

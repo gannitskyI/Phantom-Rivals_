@@ -1,2 +1,2 @@
 Build path: F:/MyDealGame/RetroRace/Yandex/Тест
-Build number: 52
+Build number: 53

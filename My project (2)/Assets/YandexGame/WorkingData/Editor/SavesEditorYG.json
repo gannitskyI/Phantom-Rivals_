@@ -1,5 +1,5 @@
 {
-    "idSave": 262,
+    "idSave": 273,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -86,7 +86,7 @@
         }
     ],
     "scoreData": {
-        "Score": 15
+        "Score": 40
     },
     "bestTimeData": {
         "bestTime": 0.0

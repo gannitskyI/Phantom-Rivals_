@@ -1,5 +1,5 @@
 {
-    "idSave": 255,
+    "idSave": 262,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -86,7 +86,7 @@
         }
     ],
     "scoreData": {
-        "Score": 0
+        "Score": 15
     },
     "bestTimeData": {
         "bestTime": 0.0
@@ -117,8 +117,8 @@
         "CarID": ""
     },
     "audioData": {
-        "isSoundOn": true,
-        "isMusicOn": true
+        "isSoundOn": false,
+        "isMusicOn": false
     },
     "tutorialCompleted": true
 }

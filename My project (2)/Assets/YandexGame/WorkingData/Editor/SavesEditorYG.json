@@ -1,5 +1,5 @@
 {
-    "idSave": 86,
+    "idSave": 6,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -86,17 +86,17 @@
         }
     ],
     "scoreData": {
-        "Score": 35
+        "Score": 0
     },
     "bestTimeData": {
         "bestTime": 0.0
     },
     "taskCountData": {
         "TaskCompletionCounts": [
-            1,
-            1,
             0,
-            1,
+            0,
+            0,
+            0,
             0,
             0
         ]

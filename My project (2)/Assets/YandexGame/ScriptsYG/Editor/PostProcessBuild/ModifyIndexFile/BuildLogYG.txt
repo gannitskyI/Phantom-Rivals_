@@ -1,2 +1,6 @@
 Build path: F:/MyDealGame/RetroRace/Yandex/Тест
+<<<<<<< Updated upstream
 Build number: 52
+=======
+Build number: 60
+>>>>>>> Stashed changes

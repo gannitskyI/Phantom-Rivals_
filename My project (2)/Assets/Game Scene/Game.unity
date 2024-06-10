@@ -11894,9 +11894,15 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
+<<<<<<< Updated upstream
     OrthographicSize: 32.67
     NearClipPlane: 0.3
     FarClipPlane: 1000
+=======
+    OrthographicSize: 8.10117
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+>>>>>>> Stashed changes
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}

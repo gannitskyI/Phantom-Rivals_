@@ -91,7 +91,7 @@ public class MoneyCounter : MonoBehaviour
             coinText.text = score.ToString() + " " + "$";
         }
     }
-
+    
     // ћетод дл€ запуска анимации перемещени€ монетки
     private void StartOscillation()
     {

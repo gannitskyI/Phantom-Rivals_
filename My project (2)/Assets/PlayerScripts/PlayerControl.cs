@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,8 @@ using YG;
 
 public class PlayerControl : MonoBehaviour
 {
+    public static PlayerControl instance;
+
     [Header("Trail Renderers")]
     public List<TrailRenderer> trailRenderers;
     private float newTime;
@@ -22,6 +25,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float driftTimer = 0f;
     [SerializeField] private float maxDriftTime = 2.0f;
     [SerializeField] private float maxDriftForce = 20.0f;
+   
 
     [Header("Physics")]
     [SerializeField] private float frictionCoefficient = 0.1f;
@@ -63,7 +67,13 @@ public class PlayerControl : MonoBehaviour
     public TextMeshProUGUI TimeCirclePlayer2;
     private TaskChecker taskChecker;
     private ModeChange modeChange;
+
+    void Awake()
+    {
+        instance = this;
  
+    }
+
 
     private void Start()
     {
@@ -84,28 +94,9 @@ public class PlayerControl : MonoBehaviour
         {
             renderer.enabled = false;
         }
+        CameraFollow.instance.UpdateTarget();
     }
- 
-
-    private void Update()
-    {
-        UpdateInvincibilityTimer();
-        if (HandleKeyboard)
-        {
-            HandleKeyboardInput();
-        }
- 
-            if (currentSpeed >= 20f)
-            {
-                if (taskChecker != null)
-                {
-                    taskChecker.FiveTask();
-                    hasTaskBeenChecked = true;
-                }
-               
-            }
-        
-    }
+  
     public void IncrementLapCount()
     {
         lapCount++;
@@ -204,6 +195,23 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        UpdateInvincibilityTimer();
+        if (HandleKeyboard)
+        {
+            HandleKeyboardInput();
+        }
+
+        if (currentSpeed >= 20f)
+        {
+            if (taskChecker != null)
+            {
+                taskChecker.FiveTask();
+                hasTaskBeenChecked = true;
+            }
+
+        }
+
         if (!canControl)
             return;
 

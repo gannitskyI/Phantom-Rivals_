@@ -21,6 +21,8 @@ public class PlayerData
 
 public class PlayerCars : MonoBehaviour
 {
+    public static PlayerCars instance;
+
     private GhostTrail ghostTrail;
     private GhostPlayer ghostPlayer;
     public GameObject[] cars;
@@ -31,6 +33,13 @@ public class PlayerCars : MonoBehaviour
     private CircleCheck ñircleCheck;
     public GameObject endWindow;
     public TextMeshProUGUI placeText;
+
+    void Awake()
+    {
+        instance = this;
+
+    }
+
     private void Start()
     {
         Application.targetFrameRate = 60;

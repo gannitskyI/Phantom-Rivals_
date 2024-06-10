@@ -1,5 +1,5 @@
 {
-    "idSave": 273,
+    "idSave": 995,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -10,7 +10,7 @@
             "price": 0,
             "name": "IMPULSE",
             "isPurchased": true,
-            "isSelected": true,
+            "isSelected": false,
             "isTaskAwarded": true,
             "taskCheck": ""
         },
@@ -19,8 +19,8 @@
             "key": "1",
             "price": 500,
             "name": "TEMPEST",
-            "isPurchased": false,
-            "isSelected": false,
+            "isPurchased": true,
+            "isSelected": true,
             "isTaskAwarded": true,
             "taskCheck": ""
         },
@@ -86,7 +86,7 @@
         }
     ],
     "scoreData": {
-        "Score": 40
+        "Score": 1075
     },
     "bestTimeData": {
         "bestTime": 0.0

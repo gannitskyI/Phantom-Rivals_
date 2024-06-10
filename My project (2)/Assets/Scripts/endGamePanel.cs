@@ -15,8 +15,6 @@ public class endGamePanel : MonoBehaviour
     [SerializeField]
     private BotSpawner botSpawner;
 
-
-
     public TextMeshProUGUI playerCountText;
     public int playerCount = 0;
     public static endGamePanel Instance { get; private set; }
@@ -37,8 +35,7 @@ public class endGamePanel : MonoBehaviour
         UpdatePlayerCountText();
     }
     private void UpdatePlayerCountText()
-    {
-       
+    { 
         playerCountText.text = LocalizationManager.GetTranslation("PLAYER_1") + " " + playerCount.ToString();
     }
     private void Start()
@@ -102,6 +99,6 @@ public class endGamePanel : MonoBehaviour
 
         playerCars.SwitchToNextPlayer();
         audioManagers.RepeatCheckSound();
-
+        CameraFollow.instance.UpdateTarget();
     }
 }

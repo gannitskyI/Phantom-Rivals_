@@ -21,31 +21,16 @@ public class CarShop : MonoBehaviour
     private List<GameObject> instantiatedPrefabs = new List<GameObject>();
     private SelectorCars selector;
     private MainMenu mainMenu;
-
-    private void OnEnable() => YandexGame.GetDataEvent += GetData;
-    private void OnDisable() => YandexGame.GetDataEvent -= GetData;
-
+ 
     private void Awake()
     {
         Instance = this;
         selector = SelectorCars.Instance;
-
-        if (YandexGame.SDKEnabled == true)
-        {
-            GetData();
-        }
+ 
     }
-
-    public void GetData()
-    {
-        // Заменяем предыдущий код на использование carDataList из ScriptableObject
-        // В этом случае данные обновляются непосредственно из carDataList
-    }
-
+ 
     public void SaveData()
-    {
-        // Для сохранения данных вам нужно будет изменить сохранение на использование carDataList
-        // Это может потребовать дополнительных изменений в YandexGame.savesData
+    { 
         YandexGame.SaveProgress();
     }
 
@@ -93,7 +78,7 @@ public class CarShop : MonoBehaviour
         }
 
         CarDataSO currentCarDataSO = carDataList[carIndex];
-        carNameText.text = currentCarDataSO.name;
+        carNameText.text = currentCarDataSO.names;
         carPriceText.text = currentCarDataSO.price.ToString() + "$";
 
         taskNameText.text = LocalizationManager.GetTranslation(currentCarDataSO.taskCheckKey);
@@ -227,8 +212,7 @@ public class CarShop : MonoBehaviour
     }
 
     public void LoadAndUpdateShop()
-    {
-        GetData();
+    { 
         LoadScoreData();
         ClearAndDisplayCar();
     }

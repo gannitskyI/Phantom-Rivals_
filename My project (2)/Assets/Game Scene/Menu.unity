@@ -10773,7 +10773,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d4b122fa6026c498b77050e5053744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carDataList: []
+  carDataList:
+  - {fileID: 11400000, guid: 17b6ab95788941540bbc0eb5266034ad, type: 2}
+  - {fileID: 11400000, guid: 17b6ab95788941540bbc0eb5266034ad, type: 2}
+  - {fileID: 11400000, guid: 17b6ab95788941540bbc0eb5266034ad, type: 2}
+  - {fileID: 11400000, guid: 17b6ab95788941540bbc0eb5266034ad, type: 2}
+  - {fileID: 11400000, guid: 17b6ab95788941540bbc0eb5266034ad, type: 2}
   carNameText: {fileID: 808159998}
   taskNameText: {fileID: 1885545649}
   carPriceText: {fileID: 1771524184}

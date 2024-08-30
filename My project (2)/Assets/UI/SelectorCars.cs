@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 using UnityEngine.SceneManagement;
-
 using System;
 
 public class SelectorCars : MonoBehaviour
@@ -17,6 +16,7 @@ public class SelectorCars : MonoBehaviour
         public int selectedCarIndex;
         public int selectedMode;
     }
+
     public List<PlayerData> playerDataList = new List<PlayerData>();
     public Dictionary<int, int> playerSelectedCars = new Dictionary<int, int>();
     private static SelectorCars instance;
@@ -42,21 +42,18 @@ public class SelectorCars : MonoBehaviour
     private bool carSelectionEnabled = true;
     private bool[] availableCars;
     public Button playButton;
+
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-       
         mainMenu = FindObjectOfType<MainMenu>();
 
         // Вызовите событие, чтобы оповестить о появлении SelectorCars
-        if (SelectorCarsAppeared != null)
-        {
-            SelectorCarsAppeared.Invoke();
-        }
+        SelectorCarsAppeared?.Invoke();
     }
 
     private void Start()
-    { 
+    {
         LoadData();
         selectedCars = new int[mainMenu.playerLabels.Length];
         availableCars = new bool[mainMenu.carIcons.Length];
@@ -66,6 +63,7 @@ public class SelectorCars : MonoBehaviour
         }
         playButton.interactable = false;
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SaveData();
@@ -98,7 +96,6 @@ public class SelectorCars : MonoBehaviour
         if (allPlayersSelected)
         {
             DisableCarSelection();
-           
             Debug.Log("Все игроки готовы!");
         }
         else if (carSelectionEnabled)
@@ -108,7 +105,7 @@ public class SelectorCars : MonoBehaviour
     }
 
     public void UpdateCarStatus(int carIndex, bool isPurchased)
-    { 
+    {
         availableCars[carIndex] = isPurchased;
 
         if (carIndex < mainMenu.carIcons.Length)
@@ -122,7 +119,6 @@ public class SelectorCars : MonoBehaviour
             if (allPlayersSelected)
             {
                 DisableCarSelection();
-               
                 Debug.Log("Все игроки готовы!");
             }
         }
@@ -132,14 +128,7 @@ public class SelectorCars : MonoBehaviour
     {
         mainMenu.PlayButtonSound();
         // Проверяем, есть ли активные label, и определяем максимальное количество игроков, которые могут выбрать машину
-        int maxPlayers = 0;
-        for (int i = 0; i < mainMenu.playerLabels.Length; i++)
-        {
-            if (mainMenu.playerLabels[i].activeSelf)
-            {
-                maxPlayers++;
-            }
-        }
+        int maxPlayers = mainMenu.playerLabels.Count(label => label.activeSelf);
 
         bool isCarSelectable = !allPlayersSelected &&
                                currentPlayerIndex < maxPlayers &&
@@ -176,15 +165,14 @@ public class SelectorCars : MonoBehaviour
 
                 // Сохраняем данные после выбора каждого игрока
                 SaveData();
-              
             }
         }
         else if (!carSelectionEnabled)
         {
-
             Debug.Log("Выбор запрещен!");
         }
     }
+
     private void SetPlayerLabelColor(int labelIndex, Color color)
     {
         if (labelIndex >= 0 && labelIndex < mainMenu.playerLabels.Length)
@@ -234,25 +222,21 @@ public class SelectorCars : MonoBehaviour
             if (!isPlayerSelected.ContainsKey(i) || !isPlayerSelected[i])
             {
                 allPlayersSelected = false;
-              
                 break;
             }
         }
-
-     
     }
 
     private void DisableCarSelection()
     {
-       // playButton.interactable = true;
         carSelectionEnabled = false;
     }
 
     public void OnCarIconClick(int carIndex)
     {
         SelectCarByPlayer(carIndex);
-     
     }
+
     public void SavePlayerDataToTemporaryFile(string filename)
     {
         string json = JsonUtility.ToJson(this);
@@ -275,6 +259,7 @@ public class SelectorCars : MonoBehaviour
             File.Delete(filePath);
         }
     }
+
     public void ResetPlayerData()
     {
         playButton.interactable = false;
@@ -296,7 +281,6 @@ public class SelectorCars : MonoBehaviour
             }
         }
 
-
         currentPlayerIndex = 0;
 
         // Удаляем файл с сохраненными данными, если он существует
@@ -304,6 +288,7 @@ public class SelectorCars : MonoBehaviour
 
         Debug.Log("Данные игроков очищены.");
     }
+
     public void SaveData()
     {
         // Сортируем словарь playerSelectedCars по ключам (индексам игроков)
@@ -329,6 +314,7 @@ public class SelectorCars : MonoBehaviour
         // Сохраняем данные во временный файл
         File.WriteAllText(path, json);
     }
+
     public void LoadData()
     {
         string path = Path.Combine(Application.temporaryCachePath, "player_data.json");

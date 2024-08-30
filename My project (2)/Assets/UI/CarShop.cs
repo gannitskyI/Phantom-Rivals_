@@ -2,30 +2,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 using I2.Loc; // Добавляем пространство имен для I2Localize
 using YG;
- 
 
 public class CarShop : MonoBehaviour
 {
     public static CarShop Instance;
 
-    [System.Serializable]
-    public class CarData
-    {
-        public string taskCheckKey;
-        public string key;
-        public int price;
-        public string name;
-        public bool isPurchased = false;
-        public bool isSelected = false;
-        public bool isTaskAwarded = false;
-        public string taskCheck; // Добавляем переменную taskCheck
-  
-    }
+    [Header("Scriptable Objects")]
+    public List<CarDataSO> carDataList; // Используем ScriptableObject
 
-    public List<CarData> cars = new List<CarData>();
     public TMP_Text carNameText;
     public TMP_Text taskNameText;
     public TMP_Text carPriceText;
@@ -46,42 +32,20 @@ public class CarShop : MonoBehaviour
 
         if (YandexGame.SDKEnabled == true)
         {
-            // Если запустился, то запускаем Ваш метод
             GetData();
- 
         }
-
     }
+
     public void GetData()
     {
-        // Загружаем список CarData
-        List<CarData> carDataList = YandexGame.savesData.carDataList;
-
-        // Если данных нет, создаем их
-        if (carDataList == null)
-        {
-            carDataList = new List<CarData>();
-            YandexGame.savesData.carDataList = carDataList;
-        }
-
-        // Обновляем данные в cars
-        foreach (CarData carData in carDataList)
-        {
-            int index = cars.FindIndex(c => c.key == carData.key);
-            if (index != -1)
-            {
-                cars[index] = carData;
-            }
-            else
-            {
-                cars.Add(carData); // Если машина была куплена после последней загрузки, добавляем её в список
-            }
-        }
+        // Заменяем предыдущий код на использование carDataList из ScriptableObject
+        // В этом случае данные обновляются непосредственно из carDataList
     }
 
     public void SaveData()
     {
-        YandexGame.savesData.carDataList = new List<CarData>(cars);
+        // Для сохранения данных вам нужно будет изменить сохранение на использование carDataList
+        // Это может потребовать дополнительных изменений в YandexGame.savesData
         YandexGame.SaveProgress();
     }
 
@@ -89,12 +53,12 @@ public class CarShop : MonoBehaviour
     {
         mainMenu = FindObjectOfType<MainMenu>();
         LoadScoreData();
-      
+
         if (selector != null)
         {
-            foreach (CarData carData in cars)
+            foreach (CarDataSO carDataSO in carDataList)
             {
-                selector.UpdateCarStatus(cars.IndexOf(carData), carData.isPurchased);
+                selector.UpdateCarStatus(carDataList.IndexOf(carDataSO), carDataSO.isPurchased);
             }
         }
         else
@@ -103,16 +67,13 @@ public class CarShop : MonoBehaviour
         }
         ClearAndDisplayCar();
 
-
         buyButton.GetComponent<Button>().interactable = false;
     }
 
     public void LoadScoreData()
     {
-        // Загружаем данные из YandexGame.savesData.scoreData
         ScoreData scoreData = YandexGame.savesData.scoreData;
 
-        // Если данные существуют, обновляем счет
         if (scoreData != null)
         {
             score = scoreData.Score;
@@ -125,26 +86,23 @@ public class CarShop : MonoBehaviour
 
     public void DisplayCar(int carIndex)
     {
-        if (carIndex < 0 || carIndex >= cars.Count)
+        if (carIndex < 0 || carIndex >= carDataList.Count)
         {
             Debug.LogError("Invalid car index!");
             return;
         }
 
-        CarData currentCarData = cars[carIndex];
-        carNameText.text = currentCarData.name;
-        carPriceText.text = currentCarData.price.ToString() + "$";
+        CarDataSO currentCarDataSO = carDataList[carIndex];
+        carNameText.text = currentCarDataSO.name;
+        carPriceText.text = currentCarDataSO.price.ToString() + "$";
 
-        // Получаем перевод по ключу из I2 Localization
-        taskNameText.text = LocalizationManager.GetTranslation(currentCarData.taskCheckKey);
+        taskNameText.text = LocalizationManager.GetTranslation(currentCarDataSO.taskCheckKey);
+        taskNameText.gameObject.SetActive(!currentCarDataSO.isTaskAwarded);
 
-        taskNameText.gameObject.SetActive(!currentCarData.isTaskAwarded);
+        bool isCarPurchased = currentCarDataSO.isPurchased;
+        bool hasEnoughMoney = score >= currentCarDataSO.price;
 
-        bool isCarPurchased = currentCarData.isPurchased;
-        bool hasEnoughMoney = score >= currentCarData.price;
-
-        // Обновляем условие для активации кнопки покупки машины
-        buyButton.GetComponent<Button>().interactable = !isCarPurchased && hasEnoughMoney && currentCarData.isTaskAwarded;
+        buyButton.GetComponent<Button>().interactable = !isCarPurchased && hasEnoughMoney && currentCarDataSO.isTaskAwarded;
 
         foreach (GameObject instantiatedPrefab in instantiatedPrefabs)
         {
@@ -152,10 +110,10 @@ public class CarShop : MonoBehaviour
         }
         instantiatedPrefabs.Clear();
 
-        GameObject carPrefab = Resources.Load<GameObject>(currentCarData.key);
-        if (carPrefab != null)
+        // Используем префаб из CarDataSO
+        if (currentCarDataSO.carPrefab != null)
         {
-            GameObject newPrefab = Instantiate(carPrefab, transform);
+            GameObject newPrefab = Instantiate(currentCarDataSO.carPrefab, transform);
             newPrefab.SetActive(true);
             instantiatedPrefabs.Add(newPrefab);
         }
@@ -175,118 +133,103 @@ public class CarShop : MonoBehaviour
 
     public void NextCar()
     {
-        selectedCarIndex = (selectedCarIndex + 1) % cars.Count;
+        selectedCarIndex = (selectedCarIndex + 1) % carDataList.Count;
         ClearAndDisplayCar();
     }
 
     public void PreviousCar()
     {
-        selectedCarIndex = (selectedCarIndex - 1 + cars.Count) % cars.Count;
+        selectedCarIndex = (selectedCarIndex - 1 + carDataList.Count) % carDataList.Count;
         ClearAndDisplayCar();
     }
 
     public void BuyCar()
     {
         mainMenu.BuyButtonSound();
-        if (selectedCarIndex < 0 || selectedCarIndex >= cars.Count)
+        if (selectedCarIndex < 0 || selectedCarIndex >= carDataList.Count)
         {
             Debug.LogError("Invalid car index!");
             return;
         }
 
-        CarData selectedCar = cars[selectedCarIndex];
-        int carPrice = selectedCar.price;
+        CarDataSO selectedCarSO = carDataList[selectedCarIndex];
+        int carPrice = selectedCarSO.price;
 
-        // Access score data from YandexGame.savesData.scoreData
         ScoreData scoreData = YandexGame.savesData.scoreData;
 
         if (scoreData != null && scoreData.Score >= carPrice)
         {
             scoreData.Score -= carPrice;
 
-            // Update score data directly within YandexGame.savesData.scoreData
             YandexGame.savesData.scoreData = scoreData;
-            YandexGame.SaveProgress(); // Save the updated score data
+            YandexGame.SaveProgress();
 
-            selectedCar.isPurchased = true;
-            cars[selectedCarIndex] = selectedCar;
+            selectedCarSO.isPurchased = true;
 
             SaveData(); // Save all cars after purchase
             LoadScoreData();
             SaveSelectedCar();
             mainMenu.UpdateCoinText();
             ClearAndDisplayCar();
-            // MainMenu.Instance.UpdateCoinText();
             MainMenu.Instance.CheckCarPurchases();
-            Debug.Log("Car purchased: " + selectedCar.key);
+            Debug.Log("Car purchased: " + selectedCarSO.key);
             Debug.Log("Player money: " + scoreData.Score);
 
-            foreach (CarData car in cars)
+            foreach (CarDataSO carDataSO in carDataList)
             {
-                selector.UpdateCarStatus(cars.IndexOf(car), car.isPurchased);
+                selector.UpdateCarStatus(carDataList.IndexOf(carDataSO), carDataSO.isPurchased);
             }
         }
         else
         {
-            Debug.Log("Insufficient funds to buy the car: " + selectedCar.key);
+            Debug.Log("Insufficient funds to buy the car: " + selectedCarSO.key);
         }
     }
 
     public void SaveSelectedCar()
     {
-        foreach (CarData carData in cars)
+        foreach (CarDataSO carDataSO in carDataList)
         {
-            carData.isSelected = false;
+            carDataSO.isSelected = false;
         }
 
-        if (selectedCarIndex >= 0 && selectedCarIndex < cars.Count)
+        if (selectedCarIndex >= 0 && selectedCarIndex < carDataList.Count)
         {
-            // Обновляем данные о выбранной машине для каждой машины
-            foreach (CarData carData in cars)
-            {
-                if (cars.IndexOf(carData) == selectedCarIndex)
-                {
-                    carData.isSelected = true;
-                    YandexGame.savesData.carDataList[cars.IndexOf(carData)] = carData;
-                    break;
-                }
-            }
-
-            // Теперь остаётся сохранить данные
+            CarDataSO selectedCarSO = carDataList[selectedCarIndex];
+            selectedCarSO.isSelected = true;
+ 
             YandexGame.SaveProgress();
         }
     }
 
-
     public bool IsCarPurchased(string carKey)
     {
-        foreach (CarData carData in cars)
+        foreach (CarDataSO carDataSO in carDataList)
         {
-            if (carData.key == carKey)
+            if (carDataSO.key == carKey)
             {
-                return carData.isPurchased;
+                return carDataSO.isPurchased;
             }
         }
         return false;
     }
 
-    // Метод для установки флага получения машины по заданию
     public void SetTaskAwarded(string carKey)
     {
-        foreach (CarData carData in cars)
+        foreach (CarDataSO carDataSO in carDataList)
         {
-            if (carData.key == carKey)
+            if (carDataSO.key == carKey)
             {
-                carData.isTaskAwarded = true;
+                carDataSO.isTaskAwarded = true;
                 break;
             }
         }
     }
+
     public void LoadAndUpdateShop()
     {
         GetData();
         LoadScoreData();
         ClearAndDisplayCar();
     }
-
 }

@@ -10773,77 +10773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d4b122fa6026c498b77050e5053744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cars:
-  - taskCheckKey: 
-    key: 0
-    price: 0
-    name: IMPULSE
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 1
-    taskCheck: 
-  - taskCheckKey: 
-    key: 1
-    price: 500
-    name: TEMPEST
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 1
-    taskCheck: 
-  - taskCheckKey: task_car_1
-    key: 2
-    price: 20000
-    name: INFERNO
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 0
-    taskCheck: "\u041F\u043E\u043A\u0443\u043F\u043A\u0430 \u043C\u0430\u0448\u0438\u043D\u044B
-      \u0431\u0443\u0434\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430
-      \u043F\u043E\u0441\u043B\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F
-      \u0437\u0430\u0434\u0430\u043D\u0438\u044F"
-  - taskCheckKey: task_car_1
-    key: 3
-    price: 30000
-    name: Nova RX-01
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 0
-    taskCheck: "\u041F\u043E\u043A\u0443\u043F\u043A\u0430 \u043C\u0430\u0448\u0438\u043D\u044B
-      \u0431\u0443\u0434\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430
-      \u043F\u043E\u0441\u043B\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F
-      \u0437\u0430\u0434\u0430\u043D\u0438\u044F"
-  - taskCheckKey: 
-    key: 4
-    price: 3000
-    name: Silent RX 1
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 1
-    taskCheck: ' '
-  - taskCheckKey: ' '
-    key: 5
-    price: 25000
-    name: Astra M1
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 1
-    taskCheck: ' '
-  - taskCheckKey: ' '
-    key: 6
-    price: 30000
-    name: 'Misterio '
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 1
-    taskCheck: ' '
-  - taskCheckKey: ' '
-    key: 7
-    price: 40000
-    name: Venera
-    isPurchased: 0
-    isSelected: 0
-    isTaskAwarded: 1
-    taskCheck: ' '
+  carDataList: []
   carNameText: {fileID: 808159998}
   taskNameText: {fileID: 1885545649}
   carPriceText: {fileID: 1771524184}

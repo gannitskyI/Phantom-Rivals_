@@ -185,15 +185,16 @@ public class MainMenu : MonoBehaviour
     {
         bool anyCarPurchased = false;
 
-        foreach (CarShop.CarData carData in CarShop.Instance.cars)
+        foreach (CarDataSO carDataSO in CarShop.Instance.carDataList)
         {
-            if (CarShop.Instance.IsCarPurchased(carData.key))
+            if (CarShop.Instance.IsCarPurchased(carDataSO.key))
             {
                 anyCarPurchased = true;
                 break;
             }
         }
- 
+
+        // Используйте anyCarPurchased, если требуется дополнительная логика
     }
 
 

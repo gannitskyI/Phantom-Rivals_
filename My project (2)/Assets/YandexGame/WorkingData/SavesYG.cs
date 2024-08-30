@@ -4,6 +4,7 @@ using static TaskChecker;
 using static AudioManagers;
 using static MoneyCounter;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace YG
 {
@@ -15,11 +16,9 @@ namespace YG
         public bool isFirstSession = true;
         public string language = "ru";
         public bool promptDone;
- 
-
-        // Вы можете выполнить какие то действия при загрузке сохранений
-        
-        public List<CarData> carDataList = new List<CarData>();
+         
+        [Header("Scriptable Objects")]
+        public List<CarDataSO> carDataList;  
 
         public ScoreData scoreData;
         public BestTimeData bestTimeData;

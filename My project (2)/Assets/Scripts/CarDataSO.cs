@@ -7,7 +7,7 @@ public class CarDataSO : ScriptableObject
     public string key;
     public int price;
     public string names;
-    public bool isPurchased = false;
+    public bool isPurchased;
     public bool isSelected = false;
     public bool isTaskAwarded = false;
     public string taskCheck;

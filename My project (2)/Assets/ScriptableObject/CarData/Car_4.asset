@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskCheckKey: 
   key: 4
-  price: 0
-  names: NOVA RX-01
+  price: 5000
+  names: SILENT 01
   isPurchased: 0
   isSelected: 0
-  isTaskAwarded: 0
-  taskCheck: 6
+  isTaskAwarded: 1
+  taskCheck: 
   carPrefab: {fileID: 6190609115596159672, guid: e7fd63a77e0680a44b116751e8c58e71, type: 3}

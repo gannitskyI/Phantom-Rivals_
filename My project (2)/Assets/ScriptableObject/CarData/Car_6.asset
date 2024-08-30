@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskCheckKey: 
   key: 6
-  price: 25000
-  names: SILENT-RX 01
+  price: 30000
+  names: MISTERIO
   isPurchased: 0
   isSelected: 0
   isTaskAwarded: 1

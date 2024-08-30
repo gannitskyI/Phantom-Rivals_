@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskCheckKey: 
   key: 5
-  price: 3000
-  names: SILENT-RX 01
+  price: 25000
+  names: ASTRA M1
   isPurchased: 0
   isSelected: 0
   isTaskAwarded: 1

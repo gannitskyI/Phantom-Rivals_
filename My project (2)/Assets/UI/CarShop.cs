@@ -10,33 +10,33 @@ public class CarShop : MonoBehaviour
     public static CarShop Instance;
 
     [Header("Scriptable Objects")]
-    public List<CarDataSO> carDataList; // Используем ScriptableObject
+    public List<CarDataSO> carDataList;  
 
-    public TMP_Text carNameText;
-    public TMP_Text taskNameText;
-    public TMP_Text carPriceText;
-    public GameObject buyButton;
-    public int selectedCarIndex = -1;
+    [SerializeField] private TMP_Text carNameText;
+    [SerializeField] private TMP_Text taskNameText;
+    [SerializeField] private TMP_Text carPriceText;
+    [SerializeField] private GameObject buyButton;
+    [SerializeField] private TMP_Text buyText;
+    [SerializeField] private int selectedCarIndex = -1;
     private int score;
     private List<GameObject> instantiatedPrefabs = new List<GameObject>();
     private SelectorCars selector;
-    private MainMenu mainMenu;
- 
+    [SerializeField] private MainMenu mainMenu;
+
     private void Awake()
     {
         Instance = this;
         selector = SelectorCars.Instance;
- 
+
     }
- 
+
     public void SaveData()
-    { 
+    {
         YandexGame.SaveProgress();
     }
 
     private void Start()
     {
-        mainMenu = FindObjectOfType<MainMenu>();
         LoadScoreData();
 
         if (selector != null)
@@ -50,10 +50,19 @@ public class CarShop : MonoBehaviour
         {
             Debug.LogWarning("SelectorCars.Instance is not available.");
         }
-        ClearAndDisplayCar();
 
-        buyButton.GetComponent<Button>().interactable = false;
+        // Находим первую некупленную машину
+        selectedCarIndex = carDataList.FindIndex(car => !car.isPurchased);
+
+        // Если все машины куплены, выбираем первую машину
+        if (selectedCarIndex == -1)
+        {
+            selectedCarIndex = 0;
+        }
+ 
+        DisplayCar(selectedCarIndex);
     }
+
 
     public void LoadScoreData()
     {
@@ -81,7 +90,6 @@ public class CarShop : MonoBehaviour
         carNameText.text = currentCarDataSO.names;
         carPriceText.text = currentCarDataSO.price.ToString() + "$";
 
-        taskNameText.text = LocalizationManager.GetTranslation(currentCarDataSO.taskCheckKey);
         taskNameText.gameObject.SetActive(!currentCarDataSO.isTaskAwarded);
 
         bool isCarPurchased = currentCarDataSO.isPurchased;
@@ -89,13 +97,26 @@ public class CarShop : MonoBehaviour
 
         buyButton.GetComponent<Button>().interactable = !isCarPurchased && hasEnoughMoney && currentCarDataSO.isTaskAwarded;
 
+        // Получаем Image компонент кнопки и меняем его цвет
+        Image buttonImage = buyButton.GetComponent<Image>();
+        switch (isCarPurchased)
+        {
+            case true:
+                buttonImage.color = new Color32(0, 0, 0, 0);
+                buyText.text = LocalizationManager.GetTermTranslation("PURCHASED");
+                break;
+            case false:
+                buttonImage.color = new Color32(249, 167, 48, 255);
+                buyText.text = LocalizationManager.GetTermTranslation("BUY");
+                break;
+        }
+
         foreach (GameObject instantiatedPrefab in instantiatedPrefabs)
         {
             Destroy(instantiatedPrefab);
         }
         instantiatedPrefabs.Clear();
 
-        // Используем префаб из CarDataSO
         if (currentCarDataSO.carPrefab != null)
         {
             GameObject newPrefab = Instantiate(currentCarDataSO.carPrefab, transform);
@@ -103,6 +124,7 @@ public class CarShop : MonoBehaviour
             instantiatedPrefabs.Add(newPrefab);
         }
     }
+
 
     public void ClearAndDisplayCar()
     {
@@ -121,7 +143,7 @@ public class CarShop : MonoBehaviour
         selectedCarIndex = (selectedCarIndex + 1) % carDataList.Count;
         ClearAndDisplayCar();
     }
-
+   
     public void PreviousCar()
     {
         selectedCarIndex = (selectedCarIndex - 1 + carDataList.Count) % carDataList.Count;
@@ -182,7 +204,7 @@ public class CarShop : MonoBehaviour
         {
             CarDataSO selectedCarSO = carDataList[selectedCarIndex];
             selectedCarSO.isSelected = true;
- 
+
             YandexGame.SaveProgress();
         }
     }
@@ -212,7 +234,7 @@ public class CarShop : MonoBehaviour
     }
 
     public void LoadAndUpdateShop()
-    { 
+    {
         LoadScoreData();
         ClearAndDisplayCar();
     }

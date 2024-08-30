@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskCheckKey: 
   key: 6
-  price: 25000
-  names: SILENT-RX 01
+  price: 40000
+  names: VENERA
   isPurchased: 0
   isSelected: 0
   isTaskAwarded: 1
   taskCheck: 
-  carPrefab: {fileID: 6190609115596159672, guid: da8ac7041e72cac45bd00a79b64c4ff1, type: 3}
+  carPrefab: {fileID: 6190609115596159672, guid: ee9fda7cbb7223c4c8e9e45acb35499f, type: 3}

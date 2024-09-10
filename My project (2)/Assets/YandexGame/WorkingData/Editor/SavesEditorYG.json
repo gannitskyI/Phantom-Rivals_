@@ -1,36 +1,11 @@
 {
-    "idSave": 1085,
+    "idSave": 30,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
-    "carDataList": [
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        },
-        {
-            "instanceID": 0
-        }
-    ],
+    "carDataList": [],
     "scoreData": {
-        "Score": 375
+        "Score": 0
     },
     "bestTimeData": {
         "bestTime": 0.0

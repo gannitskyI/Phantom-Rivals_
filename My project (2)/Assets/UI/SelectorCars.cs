@@ -20,7 +20,7 @@ public class SelectorCars : MonoBehaviour
     public List<PlayerData> playerDataList = new List<PlayerData>();
     public Dictionary<int, int> playerSelectedCars = new Dictionary<int, int>();
     private static SelectorCars instance;
-    public MainMenu mainMenu;
+    [SerializeField] private MainMenu mainMenu;
     public event Action SelectorCarsAppeared;
 
     public static SelectorCars Instance
@@ -46,9 +46,7 @@ public class SelectorCars : MonoBehaviour
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        mainMenu = FindObjectOfType<MainMenu>();
-
-        // Вызовите событие, чтобы оповестить о появлении SelectorCars
+        
         SelectorCarsAppeared?.Invoke();
     }
 

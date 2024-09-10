@@ -16,8 +16,8 @@ MonoBehaviour:
   key: 0
   price: 0
   names: IMPULSE
-  isPurchased: 0
-  isSelected: 0
+  isPurchased: 1
+  isSelected: 1
   isTaskAwarded: 1
   taskCheck: 
   carPrefab: {fileID: 930325007885445028, guid: 8aaf50785cb545c46a53291586cce8c2, type: 3}

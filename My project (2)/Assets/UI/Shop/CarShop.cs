@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using I2.Loc; // Добавляем пространство имен для I2Localize
+using I2.Loc; 
 using YG;
 
 public class CarShop : MonoBehaviour
@@ -10,7 +10,7 @@ public class CarShop : MonoBehaviour
     public static CarShop Instance;
 
     [Header("Scriptable Objects")]
-    public List<CarDataSO> carDataList;  
+    public List<CarDataSO> carDataList;
 
     [SerializeField] private TMP_Text carNameText;
     [SerializeField] private TMP_Text taskNameText;
@@ -28,6 +28,8 @@ public class CarShop : MonoBehaviour
         Instance = this;
         selector = SelectorCars.Instance;
 
+        CheckTutorialAndResetPurchase();
+
     }
 
     public void SaveData()
@@ -36,9 +38,9 @@ public class CarShop : MonoBehaviour
     }
 
     private void Start()
-    {
+    { 
         LoadScoreData();
-
+       
         if (selector != null)
         {
             foreach (CarDataSO carDataSO in carDataList)
@@ -50,20 +52,19 @@ public class CarShop : MonoBehaviour
         {
             Debug.LogWarning("SelectorCars.Instance is not available.");
         }
-
-        // Находим первую некупленную машину
+ 
         selectedCarIndex = carDataList.FindIndex(car => !car.isPurchased);
-
-        // Если все машины куплены, выбираем первую машину
+ 
         if (selectedCarIndex == -1)
         {
             selectedCarIndex = 0;
         }
- 
+
         DisplayCar(selectedCarIndex);
+
+        CheckTutorialAndResetPurchase();
     }
-
-
+ 
     public void LoadScoreData()
     {
         ScoreData scoreData = YandexGame.savesData.scoreData;
@@ -96,8 +97,7 @@ public class CarShop : MonoBehaviour
         bool hasEnoughMoney = score >= currentCarDataSO.price;
 
         buyButton.GetComponent<Button>().interactable = !isCarPurchased && hasEnoughMoney && currentCarDataSO.isTaskAwarded;
-
-        // Получаем Image компонент кнопки и меняем его цвет
+ 
         Image buttonImage = buyButton.GetComponent<Image>();
         switch (isCarPurchased)
         {
@@ -143,7 +143,7 @@ public class CarShop : MonoBehaviour
         selectedCarIndex = (selectedCarIndex + 1) % carDataList.Count;
         ClearAndDisplayCar();
     }
-   
+
     public void PreviousCar()
     {
         selectedCarIndex = (selectedCarIndex - 1 + carDataList.Count) % carDataList.Count;
@@ -173,7 +173,7 @@ public class CarShop : MonoBehaviour
 
             selectedCarSO.isPurchased = true;
 
-            SaveData(); // Save all cars after purchase
+            SaveData(); 
             LoadScoreData();
             SaveSelectedCar();
             mainMenu.UpdateCoinText();
@@ -237,5 +237,19 @@ public class CarShop : MonoBehaviour
     {
         LoadScoreData();
         ClearAndDisplayCar();
+    }
+
+    private void CheckTutorialAndResetPurchase()
+    {
+        if (!YandexGame.savesData.tutorialCompleted)
+        {
+            buyButton.GetComponent<Button>().interactable = false;
+
+            // Сброс значения isPurchased для текущей выбранной машины
+            if (selectedCarIndex >= 0 && selectedCarIndex < carDataList.Count)
+            {
+                carDataList[selectedCarIndex].isPurchased = false;
+            }
+        }
     }
 }

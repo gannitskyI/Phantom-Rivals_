@@ -7,8 +7,7 @@ using YG;
 public class EndUI : MonoBehaviour
 {
     [Header("References")]
-
-
+     
     public TextMeshProUGUI bestTimeText;
      
     private CanvasFunction canvasFunction;

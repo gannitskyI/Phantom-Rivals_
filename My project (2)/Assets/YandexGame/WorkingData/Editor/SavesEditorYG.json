@@ -1,11 +1,11 @@
 {
-    "idSave": 30,
+    "idSave": 18,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "carDataList": [],
     "scoreData": {
-        "Score": 0
+        "Score": 40
     },
     "bestTimeData": {
         "bestTime": 0.0

@@ -136,28 +136,22 @@ public class PlayerCars : MonoBehaviour
     }
 
     public void SwitchToNextPlayer()
-    {
-        // —начала деактивируем машину текущего игрока
+    { 
         DeactivateCurrentPlayerCar(currentPlayerIndex);
-
-        // ”величиваем индекс текущего игрока на 1
+ 
         currentPlayerIndex++;
-
-        // ≈сли текущий индекс больше максимального индекса игрока, игра завершена
+ 
         if (currentPlayerIndex > maxPlayerIndex)
         {
             endWindow.SetActive(true);
             Debug.Log("Game over!");
             return;
         }
-
-        // јктивируем машину следующего игрока
+ 
         ActivateCurrentPlayerCar(currentPlayerIndex, selectedCarsIndices);
-
-        // ѕоказываем следы привидений дл€ выбранных машин
+ 
         ShowAllGhostTrails(selectedCarsIndices);
-
-        // ¬ызываем метод SetPCControl с аргументом true только если игрок выбрал управление клавиатурой
+ 
         if (PlayerControl.isKeyboardControlSelected)
         {
             PlayerControl playerControl = FindObjectOfType<PlayerControl>();
@@ -167,7 +161,6 @@ public class PlayerCars : MonoBehaviour
             }
         }
 
-        // ѕоказываем Fullscreen только если currentPlayerIndex <= maxPlayerIndex
         if (currentPlayerIndex <= maxPlayerIndex)
         {
             YandexGame.FullscreenShow();

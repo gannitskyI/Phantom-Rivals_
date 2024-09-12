@@ -57,7 +57,7 @@ public class CanvasFunction : MonoBehaviour
         LoadBestTime();// Load the control data at the start of the game
     }
     public void SaveBestTime()
-    { // Создаем экземпляр BestTimeData и устанавливаем лучшее время
+    { 
         BestTimeData bestTimeData = new BestTimeData();
         bestTimeData.bestTime = bestTime;
 
